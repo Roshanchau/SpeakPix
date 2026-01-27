@@ -1,141 +1,125 @@
+# Autism Communication App
 
-# Autism-app
+An **Augmentative and Alternative Communication (AAC)** mobile application designed to help individuals with autism express themselves through intuitive image-based word selection and AI-powered word prediction.
 
-## Overview
-This repository contains a project developed during a hackathon, featuring a **Flask-based backend API** and a **React Native mobile application** built with Expo. The project leverages various technologies to provide functionalities like image fetching, word prediction, and Redis caching.
+## Demo
 
----
+https://github.com/user-attachments/assets/375c08ff-e564-4483-ad2f-52031789d381
 
-## Folder Structure
-- **`hackthon_ktm/`**: Contains the backend code developed using Flask.
-- **`mobile/autism-mobile/`**: Contains the React Native mobile application built with Expo.
+## Screenshots
 
----
+<p align="center">
+  <img src="assets/screenshot0.png" width="250" alt="School Scenario">
+  <img src="assets/screenshot1.png" width="250" alt="Home Scenario">
+  <img src="assets/screenshot2.png" width="250" alt="Frequent Sentences">
+</p>
 
-## Features
+| School Scenario | Home Scenario | Frequent Sentences |
+|:---:|:---:|:---:|
+| Context-aware word suggestions for school environment | Image-based word selection for home needs | Quick access to commonly used phrases |
 
-### Backend (`hackthon_ktm`)
-- Built with Flask.
-- Implements API endpoints for:
-  - **Image fetching**: Fetches images using the Pixabay API.
-  - **Word prediction**: Utilizes GPT-2 to predict words based on user input.
-  - **Caching**: Uses Redis to cache results for enhanced performance.
-- External dependencies include:
-  - Flask-Cors for enabling cross-origin requests.
-  - HuggingFace Transformers for GPT-2 integration.
-  - Redis for caching.
-- **Requirement**: Users must configure their own **IP address** to access the API.
+## Key Features
 
-### Mobile App (`mobile/autism-mobile`)
-- Developed using React Native and Expo.
-- Interacts with the Flask backend for fetching images and word prediction.
-- **Requirement**: Users must configure their own **IP address** to connect to the backend API.
+- **Image-Based Communication**: Select words through visual images, making communication more intuitive and accessible
+- **Scenario-Based Contexts**: Switch between environments (Home, School) for contextually relevant word suggestions
+- **AI Word Prediction**: GPT-2 powered word prediction that learns from user input patterns
+- **Frequent Sentences**: Save and quickly access commonly used phrases for faster communication
+- **Smart Caching**: Redis-powered caching for instant image loading and improved performance
 
----
+## Architecture
+
+```
+autism-app/
+├── hackthon_ktm/           # Flask Backend API
+│   ├── main.py             # Main API server
+│   ├── history.py          # User history tracking
+│   ├── most_repeted_sentences.py  # Frequent phrases logic
+│   └── scenerio/           # Scenario-based word sets
+│
+└── mobile/autism-mobile/   # React Native + Expo App
+```
+
+## Tech Stack
+
+| Backend | Frontend |
+|---------|----------|
+| Flask | React Native |
+| Redis | Expo |
+| GPT-2 (HuggingFace) | |
+| Pixabay API | |
 
 ## Getting Started
 
 ### Prerequisites
-1. **Backend**
-   - Python 3.7 or later.
-   - Redis server.
-   - A Pixabay API key.
-2. **Mobile App**
-   - Node.js and npm.
-   - Expo CLI.
 
-### Installation
+**Backend**
+- Python 3.7+
+- Redis server
+- Pixabay API key
 
-#### Backend
-1. Navigate to the `hackthon_ktm` folder.
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Configure environment variables:
-   - Add your Pixabay API key to the `.env` file as `API_kEY`.
-   - Add your Redis password to the `.env` file as `REDIS_PASSWORD`.
-4. Start the Flask server:
-   ```bash
-   python flask_oldest.py
-   ```
+**Mobile App**
+- Node.js & npm
+- Expo CLI
 
-#### Mobile App
-1. Navigate to the `mobile/autism-mobile` folder.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure the IP address:
-   - Update the backend API URL in the React Native app code to match your Flask server's IP address.
-4. Start the Expo development server:
-   ```bash
-   npx expo start
-   ```
+### Backend Setup
 
----
+```bash
+# Navigate to backend folder
+cd hackthon_ktm
 
-## API Endpoints
+# Install dependencies
+pip install -r requirements.txt
 
-### 1. **Fetch Images**
-   **Endpoint**: `/api/images`  
-   **Method**: `GET`  
-   **Query Parameters**:
-   - `query`: Search term for images.
-   - `id`: Unique identifier for caching.
-   **Response**: URL of the fetched image.
+# Create .env file with:
+# API_kEY=your_pixabay_api_key
+# REDIS_PASSWORD=your_redis_password
 
-### 2. **Word Prediction**
-   **Endpoint**: `/api/guu`  
-   **Method**: `POST`  
-   **Request Body**: 
-   ```json
-   {
-       "item": "input_text"
-   }
-   ```
-   **Response**: Predicted words.
+# Start the server
+python main.py
+```
 
-### 3. **Display Words**
-   **Endpoint**: `/api/display_words`  
-   **Method**: `GET`  
-   **Query Parameters**:
-   - `count`: Pagination count.
-   **Response**: List of words for display.
+### Mobile App Setup
 
----
+```bash
+# Navigate to mobile app folder
+cd mobile/autism-mobile
 
-## Technologies Used
+# Install dependencies
+npm install
 
-- **Backend**:
-  - Flask
-  - Redis
-  - Transformers (GPT-2)
-  - Python-Dotenv
-  - Pixabay API
+# Update the backend API URL in the app to your server's IP address
 
-- **Frontend**:
-  - React Native
-  - Expo
+# Start Expo
+npx expo start
+```
 
----
+## API Reference
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/images?query=&id=` | GET | Fetch contextual images from Pixabay |
+| `/api/guu` | POST | Get AI word predictions (`{"item": "input_text"}`) |
+| `/api/display_words?count=` | GET | Retrieve paginated word list |
+
+## How It Works
+
+1. **Select a Scenario**: Choose the context (Home, School, etc.) for relevant word suggestions
+2. **Build Sentences**: Tap on images to select words and construct sentences
+3. **AI Assistance**: The app predicts the next likely words based on your input
+4. **Save Favorites**: Frequently used sentences are saved for quick access
 
 ## Contributing
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add feature"
-   ```
-4. Push the branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a pull request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project was developed during a hackathon. Feel free to use and modify for educational and accessibility purposes.
 
 ---
 
-
+*Built with the goal of making communication accessible for everyone.*
