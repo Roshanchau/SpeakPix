@@ -1,4 +1,4 @@
-# Autism Communication App
+# SpeakPix
 
 An **Augmentative and Alternative Communication (AAC)** mobile application designed to help individuals with autism express themselves through intuitive image-based word selection and AI-powered word prediction.
 
@@ -29,8 +29,8 @@ https://github.com/user-attachments/assets/375c08ff-e564-4483-ad2f-52031789d381
 ## Architecture
 
 ```
-autism-app/
-├── hackthon_ktm/           # Flask Backend API
+SpeakPix/
+├── backend/                # Flask Backend API
 │   ├── main.py             # Main API server
 │   ├── history.py          # User history tracking
 │   ├── most_repeted_sentences.py  # Frequent phrases logic
@@ -65,7 +65,7 @@ autism-app/
 
 ```bash
 # Navigate to backend folder
-cd hackthon_ktm
+cd backend
 
 # Install dependencies
 pip install -r requirements.txt
@@ -100,6 +100,7 @@ npx expo start
 | `/api/images?query=&id=` | GET | Fetch contextual images from Pixabay |
 | `/api/guu` | POST | Get AI word predictions (`{"item": "input_text"}`) |
 | `/api/display_words?count=` | GET | Retrieve paginated word list |
+| `/api/most_repeated_sentence` | GET | Retrieve the top frequently used sentences |
 
 ## How It Works
 
